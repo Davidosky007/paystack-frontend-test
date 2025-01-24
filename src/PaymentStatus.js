@@ -8,9 +8,11 @@ const PaymentStatus = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
+
     const verifyTransaction = async () => {
       try {
-       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/verify-transaction/${reference}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/verify-transaction/${reference}`);
         setStatus(response.data.status === 'success' ? 'Payment Successful!' : 'Payment Failed.');
       } catch (err) {
         console.error(err);

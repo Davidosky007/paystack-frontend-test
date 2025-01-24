@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const TransactionForm = () => {
@@ -7,6 +7,10 @@ const TransactionForm = () => {
   const [amount, setAmount] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
+  }, []);
 
   const handlePayment = async () => {
     if (!userName || !userEmail || !amount) {
