@@ -17,21 +17,12 @@ const TransactionForm = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/initialize-transaction`,
-        {
-          email: userEmail,
-          amount: amount * 100, // Convert to kobo
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.REACT_APP_STRIPE_SECRET_KEY}`,
-            'Access-Control-Allow-Origin': '*'
-          }
-        }
-      );
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/initialize-transaction`, {
+        email: userEmail,
+        amount: amount * 100, // Convert to kobo
+      });
 
+      // Redirect user to Paystack payment page
       window.location.href = response.data.authorization_url;
     } catch (err) {
       console.error(err);
@@ -39,8 +30,8 @@ const TransactionForm = () => {
     } finally {
       setLoading(false);
     }
-
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 rounded shadow-md w-96">
